@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Simple React-Movie project based on themoviedb API, React Hooks, Styled components and Session storage. 
 
