@@ -38,6 +38,15 @@ export const useHomeFetch = () => {
 
   // Initial and Search
   useEffect(() => {
+    if (!searchTerm) {
+      const sessionState = isPersistedState("homeState");
+
+      if (sessionState) {
+        setState(sessionState);
+        return;
+      }
+    }
+    setState(initialState);
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
   // Load more
@@ -47,5 +56,11 @@ export const useHomeFetch = () => {
     fetchMovies(state.page + 1, searchTerm);
     setIsLoadingMore(false);
   }, [isLoadingMore, searchTerm, state.page]);
+
+  // Write to the session storage
+  useEffect(() => {
+    if (!searchTerm) sessionStorage.setItem("homeState", JSON.stringify(state));
+  }, [searchTerm, state]);
+
   return { state, loading, error, setSearchTerm, setIsLoadingMore };
 };
